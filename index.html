@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Computed Properties</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
+</head>
+<body>
+<div id="joe">
+<div class="container">
+<div class="col-md-12">
+<div class="col-md-4">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			New Tasks
+		</div>
+		<div class="panel-body">
+		<div class="form-group">
+	Name: <input type="text" v-model="name" class="form-control" name="title"><br>	
+	Status:<select v-model="status" name="status" class="form-control">
+		<option value="true">Complete</option>
+		<option value="false">In-complete</option>
+	</select>
+	<button @click='newTask' class="btn btn-block btn-primary ">Create</button>
+		</div>
+			
+		</div>
+	</div>
+</div>
+
+<div class="col-md-4">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			Completed Tasks
+		</div>
+		<div class="panel-body">
+			<ul>
+				<li v-for="a in complete" v-text="a.name"></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			In-complete Tasks
+		</div>
+		<div class="panel-body">
+				<ul>
+	<li v-for='choice in incomplete'>
+		{{choice.name}}
+	</li>				
+				</ul>
+		</div>
+	</div>
+</div>
+			</div>	
+
+			</div>
+
+
+		</div>
+</body>
+<script src='vue.js'></script>
+<script src='bootstrap.js'></script>
+<script>
+	var app =  new Vue({
+		el:'#joe',
+		data:{
+			name:'',
+			status:'',
+			tasks:[{name:'',status:''}],
+			allTasks:[
+			{name:'',status:''}
+			]
+
+		},
+		methods:{
+			newTask(){
+		this.tasks.push({name:this.name,status:this.status});
+		
+			}
+		},
+		computed:{
+			complete(){
+			return this.tasks.filter(task=>task.status=='true');
+			},
+			incomplete(){
+				return this.tasks.filter(task=>task.status=='false');
+			}
+		}
+	});
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
